@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import CreatePost from './components/create-post';
 import Header from './components/header';
 import Login from './components/login';
+import PostsList from './components/postsList';
 import './styles.css';
 
 export default function App() {
@@ -15,20 +16,8 @@ export default function App() {
       {user && (
         <>
           <Header user={user} setUser={setUser} />
-          <CreatePost posts={posts} setPosts={setPosts} />
-          {posts
-            ? posts.map((post, index) => (
-                <div key={index}>
-                  <img
-                    style={{ height: 100, width: 200, objectFit: 'cover' }}
-                    scr={post.image}
-                    alt={post.image}
-                  />
-                  <div>Post content: {post.content}</div>
-                  <br />
-                </div>
-              ))
-            : null}
+          <CreatePost posts={posts} setPosts={setPosts} user={user} />
+          <PostsList posts={posts} />
         </>
       )}
     </div>

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 
-const CreatePost = ({ posts, setPosts }) => {
-  const [createPost, setCreatePost] = useState({});
+const CreatePost = ({ posts, setPosts, user }) => {
+  const [createPost, setCreatePost] = useState({ user: user });
   const contentRef = useRef();
   const imageRef = useRef();
 
