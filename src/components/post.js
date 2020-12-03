@@ -1,16 +1,17 @@
 import React from 'react';
 
 const Post = ({ post }) => {
+  const {image, content, user} = post;
+
   return (
     <div>
-      <div>User: {post.user}</div>
-      <img
-        style={{ height: 100, width: 200, objectFit: 'cover' }}
-        scr={post.image}
-        alt={post.image}
+      <img 
+        style={{height: 100, width: 200, objectFit: 'cover'}}
+        src={URL.createObjectURL(image)}
+        alt="cover"
       />
-      <div>Post content: {post.content}</div>
-      <br />
+      <p>Content: {content}</p>
+      <p>created by: {user}</p>
     </div>
   );
 };

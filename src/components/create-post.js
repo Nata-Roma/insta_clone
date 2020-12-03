@@ -1,13 +1,15 @@
 import React, { useRef, useState } from 'react';
 
 const CreatePost = ({ posts, setPosts, user }) => {
-  const [createPost, setCreatePost] = useState({ user: user });
+  const [content, setContent] = useState('');
+  const [image, setImage] = useState(null);
   const contentRef = useRef();
   const imageRef = useRef();
 
   const submitPostHandler = (e) => {
     e.preventDefault();
-    setPosts([createPost, ...posts]);
+    const post = {image, content, user};
+    setPosts([post, ...posts]);
     contentRef.current.value = '';
     imageRef.current.value = null;
   };
@@ -20,17 +22,16 @@ const CreatePost = ({ posts, setPosts, user }) => {
           type="text"
           placeholder="content"
           onChange={(e) =>
-            setCreatePost({ ...createPost, content: e.target.value })
+            setContent( e.target.value )
           }
           ref={contentRef}
         />
         <input
           type="file"
-          onChange={(e) =>
-            setCreatePost({
-              ...createPost,
-              image: URL.createObjectURL(e.target.files[0])
-            })
+          onChange={(e) => {
+            setImage(e.target.files[0]);
+          }
+            
           }
           ref={imageRef}
         />
@@ -38,6 +39,13 @@ const CreatePost = ({ posts, setPosts, user }) => {
         <button>Submit the post</button>
       </form>
       <br />
+      {image && (
+        <img 
+          style={{height: 100, width: 200, objectFit: 'cover'}}
+          src={URL.createObjectURL(image)}
+          alt="cover"
+        />
+      )}
     </div>
   );
 };

@@ -6,7 +6,7 @@ import PostsList from './components/postsList';
 import './styles.css';
 
 export default function App() {
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState('qq');
   const [posts, setPosts] = useState([]);
 
   return (
@@ -17,7 +17,7 @@ export default function App() {
         <>
           <Header user={user} setUser={setUser} />
           <CreatePost posts={posts} setPosts={setPosts} user={user} />
-          <PostsList posts={posts} />
+         <PostsList posts={posts} />
         </>
       )}
     </div>
