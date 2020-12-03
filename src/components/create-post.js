@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 
-const CreatePost = ({ posts, setPosts, user }) => {
+const CreatePost = ({ addNewPost, user }) => {
   const [content, setContent] = useState('');
   const [image, setImage] = useState(null);
   const contentRef = useRef();
@@ -9,7 +9,7 @@ const CreatePost = ({ posts, setPosts, user }) => {
   const submitPostHandler = (e) => {
     e.preventDefault();
     const post = {image, content, user};
-    setPosts([post, ...posts]);
+    addNewPost(post);
     contentRef.current.value = '';
     imageRef.current.value = null;
   };

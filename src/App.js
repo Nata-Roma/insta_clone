@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CreatePost from './components/create-post';
 import Header from './components/header';
 import Login from './components/login';
@@ -9,17 +9,22 @@ export default function App() {
   const [user, setUser] = useState('qq');
   const [posts, setPosts] = useState([]);
 
-  return (
-    <div>
-      {!user && <Login setUser={setUser} />}
+  useEffect(() => {
+    document.title = user ? `${user}'s Feed` : "Please login";
+  }, [user]);
 
-      {user && (
-        <>
+  const addNewPost = (newPost) => {
+    setPosts([newPost, ...posts]);
+  }
+
+  if(!user) {
+    return <Login setUser={setUser} />
+  }
+  return (
+    <div> 
           <Header user={user} setUser={setUser} />
-          <CreatePost posts={posts} setPosts={setPosts} user={user} />
+          <CreatePost addNewPost={addNewPost} user={user} />
          <PostsList posts={posts} />
-        </>
-      )}
     </div>
   );
 }
