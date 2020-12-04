@@ -8,10 +8,14 @@ const CreatePost = ({ addNewPost, user }) => {
 
   const submitPostHandler = (e) => {
     e.preventDefault();
-    const post = {image, content, user};
+    const post = { image, content, user };
     addNewPost(post);
     contentRef.current.value = '';
     imageRef.current.value = null;
+    if (!contentRef.current.value && !imageRef.current.value) {
+      setContent('');
+      setImage(null);
+    }
   };
 
   return (
@@ -21,18 +25,14 @@ const CreatePost = ({ addNewPost, user }) => {
         <input
           type="text"
           placeholder="content"
-          onChange={(e) =>
-            setContent( e.target.value )
-          }
+          onChange={(e) => setContent(e.target.value)}
           ref={contentRef}
         />
         <input
           type="file"
           onChange={(e) => {
             setImage(e.target.files[0]);
-          }
-            
-          }
+          }}
           ref={imageRef}
         />
         <br />
@@ -40,8 +40,8 @@ const CreatePost = ({ addNewPost, user }) => {
       </form>
       <br />
       {image && (
-        <img 
-          style={{height: 100, width: 200, objectFit: 'cover'}}
+        <img
+          style={{ height: 100, width: 200, objectFit: 'cover' }}
           src={URL.createObjectURL(image)}
           alt="cover"
         />
