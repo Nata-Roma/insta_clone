@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 
-const CreatePost = ({ addNewPost, user }) => {
+const CreatePost = ({ addNewPost, user, dispatch }) => {
   const [content, setContent] = useState('');
   const [image, setImage] = useState(null);
   const contentRef = useRef();
@@ -8,8 +8,9 @@ const CreatePost = ({ addNewPost, user }) => {
 
   const submitPostHandler = (e) => {
     e.preventDefault();
-    const post = { image, content, user };
-    addNewPost(post);
+    const post = { image, content, user, id: Date.now() };
+    // addNewPost(post);
+    dispatch({ type: 'ADD_POST', payload: post });
     contentRef.current.value = '';
     imageRef.current.value = null;
     if (!contentRef.current.value && !imageRef.current.value) {

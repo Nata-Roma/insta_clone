@@ -1,9 +1,15 @@
 import React, { useContext } from 'react';
-import { userContext } from '../App';
+import { userContext, postsContext } from '../App';
 
-const Post = ({ image, content, user }) => {
+const Post = ({ image, content, user, id }) => {
   const currentUser = useContext(userContext);
+  const dispatch = useContext(postsContext);
+
   const isCurrentUser = currentUser === user;
+
+  const deletePostHandler = () => {
+    dispatch({ type: 'DELETE_POST', id });
+  };
 
   return (
     <div>
@@ -18,7 +24,12 @@ const Post = ({ image, content, user }) => {
       <p style={{ color: isCurrentUser ? 'green' : null }}>
         created by: {user}
       </p>
-      <p>{currentUser}</p>
+      {/* <p>{currentUser}</p> */}
+      <div>
+        {isCurrentUser && (
+          <button onClick={deletePostHandler}>Delete Post</button>
+        )}
+      </div>
     </div>
   );
 };

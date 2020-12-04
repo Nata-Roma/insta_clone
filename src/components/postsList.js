@@ -5,9 +5,9 @@ const PostsList = ({ posts }) => {
   return (
     <div>
       <h2>Posts list:</h2>
-      {posts.map((post, index) => (
-        <Post key={index} {...post} />
-      ))}
+      {posts.map((post) => {
+        return <Post key={post.id} {...post} />;
+      })}
     </div>
   );
 };
